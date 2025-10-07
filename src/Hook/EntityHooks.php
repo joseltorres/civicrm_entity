@@ -24,6 +24,7 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldConfigInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
  * Hook implementations for entities.
@@ -38,6 +39,7 @@ class EntityHooks {
     protected EntityTypeManagerInterface $entityTypeManager,
     protected EntityLastInstalledSchemaRepositoryInterface $entityLastInstalledSchemaRepository,
     protected EntityFieldManagerInterface $entityFieldManager,
+    protected ModuleHandlerInterface $moduleHandler,
   ) {
   }
 
@@ -142,6 +144,11 @@ class EntityHooks {
             $entity_type_info['links']['add-form'],
           );
         }
+      }
+      
+      // Add inline_form handler for all civicrm entity types if inline_entity_form module is enabled.
+      if ($this->moduleHandler->moduleExists('inline_entity_form')) {
+        $entity_type_info['handlers']['inline_form'] = '\Drupal\inline_entity_form\Form\EntityInlineForm';
       }
 
       // If this entity has bundle support, we define the bundle field as
