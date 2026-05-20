@@ -57,7 +57,7 @@ phpunit:
       - PHP: "8.4"
         DRUPAL: "^11.3"
         CIVICRM: "^6.0"
-        CHROMEDRIVER_VERSION: "latest"
+        CHROMEDRIVER_VERSION: "133.0.6943.126"
   services:
     - name: mysql:8.0
       alias: mysql
@@ -123,7 +123,7 @@ phpunit:
         apt-get install -y -qq chromium chromium-driver
       else
         apt-get install -y -qq libu2f-udev
-        curl -L -o /tmp/chrome.deb \
+        curl --retry 2 -L -o /tmp/chrome.deb \
           "https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_133.0.6943.126-1_amd64.deb"
         dpkg -i /tmp/chrome.deb || apt-get install -f -y
         curl -L -o /tmp/chromedriver.zip \

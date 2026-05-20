@@ -33,7 +33,6 @@ final class ActivityFullcalendarViewTest extends CivicrmEntityTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
-    'civicrm_entity_fullcalendar_test',
   ];
 
   /**
@@ -43,6 +42,8 @@ final class ActivityFullcalendarViewTest extends CivicrmEntityTestBase {
    */
   public function setUp(): void {
     parent::setUp();
+    $this->container->get('module_installer')->install(['node']);
+    $this->container->get('module_installer')->install(['civicrm_entity_fullcalendar_test']);
 
     $admin_user = $this->createUser([
       'access content',
