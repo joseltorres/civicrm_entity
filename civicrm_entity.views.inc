@@ -15,7 +15,6 @@ use Drupal\field\FieldStorageConfigInterface;
 /**
  * Implements hook_views_data_alter().
  *
- * @note
  * @note Copy and paste of views_views_data_alter to support our storage check.
  *
  * @see views_views_data()
